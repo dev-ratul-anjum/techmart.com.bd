@@ -1,7 +1,7 @@
 model Manufacturer {
     id                 String    @id @default(uuid())
     name               String
-    image              String
+    image              String?
     description        String
     manufacturerUrl    String    @unique
     metaTagTitle       String

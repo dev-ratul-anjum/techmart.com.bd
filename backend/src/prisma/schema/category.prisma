@@ -1,9 +1,9 @@
 model Category {
-    id                 String @id @default(uuid())
+    id                 String  @id @default(uuid())
     name               String
     description        String
-    categoryUrl        String @unique
-    image              String
+    categoryUrl        String  @unique
+    image              String?
     metaTagTitle       String
     metaTagDescription String
     metaTagKeywords    String
