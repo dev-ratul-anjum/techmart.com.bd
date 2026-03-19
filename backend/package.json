@@ -12,7 +12,7 @@
   "packageManager": "yarn@1.22.22",
   "scripts": {
     "dev": "tsx watch ./src/server.ts",
-    "build": "tsc",
+    "build": "tsc && tsc-alias",
     "start": "node dist/server.js",
     "prisma:generate": "prisma generate",
     "prisma:db:push": "prisma db push",
@@ -22,14 +22,22 @@
   "dependencies": {
     "@prisma/adapter-pg": "^7.0.1",
     "@prisma/client": "^7.0.1",
+    "bcryptjs": "^3.0.3",
+    "cloudinary": "^2.9.0",
+    "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "multer": "^2.1.1",
     "zod": "^4.3.5"
   },
   "devDependencies": {
+    "@types/cookie-parser": "^1.4.10",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/multer": "^2.1.0",
     "@types/node": "^24.10.1",
     "@typescript-eslint/eslint-plugin": "^8.48.0",
     "@typescript-eslint/parser": "^8.48.0",
@@ -40,6 +48,7 @@
     "eslint-plugin-prettier": "^5.5.4",
     "prettier": "^3.7.3",
     "prisma": "^7.0.1",
+    "tsc-alias": "^1.8.16",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3"
   }

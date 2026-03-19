@@ -1,28 +1,27 @@
 import { ErrorRequestHandler, RequestHandler } from "express";
-import responseHandler from "../utils/responseHandler.js";
 import { Prisma } from "../prisma/generated/client.js";
 import { ZodError } from "zod";
+import multer from "multer";
+import responseHandler from "$/utils/responseHandler.js";
 import {
   parseP2003FieldName,
   parsePrismaValidationError,
-} from "../utils/prismaErrorParser.js";
+} from "$/utils/prismaErrorParser.js";
 
 export class ApiError extends Error {
   statusCode: number;
   path: string;
-  data: any;
 
   constructor(
     statusCode: number,
     message: string,
     path: string = "",
-    data?: any,
-    stack?: string
+    stack?: string,
   ) {
     super(message);
     this.statusCode = statusCode;
     this.path = path;
-    this.data = data;
+
     if (stack) {
       this.stack = stack;
     } else {
@@ -42,15 +41,11 @@ export const globalErrorHandler: ErrorRequestHandler = (
   err,
   req,
   res,
-  next
+  next,
 ) => {
   let statusCode = 500;
   let message = err.message || "Something went wrong. Please try again later.";
   let errors = null;
-
-  if (!(err instanceof ApiError)) {
-    console.log(err);
-  }
 
   if (err instanceof Prisma.PrismaClientKnownRequestError) {
     switch (err.code) {
@@ -65,19 +60,26 @@ export const globalErrorHandler: ErrorRequestHandler = (
         ];
         break;
 
-      case "P2003": // Foreign key
+      case "P2003": {
+        // Foreign key constraint failed
         const modelName = err.meta?.modelName || "UnknownModel";
         const fieldName = parseP2003FieldName(err.message);
 
         statusCode = 400;
-        message = `Invalid value provided for '${fieldName}'. Please ensure the referenced record exists.`;
+
+        message = `Operation failed due to a related data constraint.`;
+
         errors = [
           {
             path: fieldName !== "unknown_field" ? fieldName : "general",
-            message,
+            message:
+              fieldName !== "unknown_field"
+                ? `The provided value for '${fieldName}' is invalid or this ${modelName} is still linked to other records. Ensure the referenced record exists and remove dependent records if necessary.`
+                : `This record is either linked to other existing records or references a non-existing related record. Please verify relationships before retrying.`,
           },
         ];
         break;
+      }
 
       case "P1000": // Auth fail
         statusCode = 500;
@@ -100,6 +102,35 @@ export const globalErrorHandler: ErrorRequestHandler = (
           },
         ];
         break;
+      case "P2025": // Record not found
+        const targetModel = err.meta?.modelName || "Record";
+        statusCode = 404;
+        message = `${targetModel} not found. The operation could not be completed because the target record does not exist.`;
+        errors = [
+          {
+            path: "general",
+            message,
+          },
+        ];
+        break;
+
+      case "P2012":
+        statusCode = 400;
+        console.log(err);
+
+        // Extract field name from message (optional but useful)
+        const fieldMatch = err.message.match(/`(.+?)`/);
+        const field = fieldMatch ? fieldMatch[1].split(".").pop() : "field";
+
+        message = `${field} is required`;
+
+        errors = [
+          {
+            path: field || "general",
+            message,
+          },
+        ];
+        break;
 
       default:
         statusCode = 400;
@@ -110,7 +141,7 @@ export const globalErrorHandler: ErrorRequestHandler = (
   } else if (err instanceof Prisma.PrismaClientValidationError) {
     const error = parsePrismaValidationError(err.message);
     statusCode = 400;
-    message = err.message ?? "Prisma query validation error";
+    message = error.message ?? "Prisma query validation error";
     errors = [
       {
         path: error.field !== "unknown_field" ? error.field : "general",
@@ -135,6 +166,35 @@ export const globalErrorHandler: ErrorRequestHandler = (
     message = err.message;
     if (err.path) {
       errors = [{ path: err.path, message }];
+    }
+  } else if (err instanceof multer.MulterError) {
+    statusCode = 400;
+    message = "There was an upload error!";
+
+    switch (err.code) {
+      case "LIMIT_FILE_SIZE":
+        message = "File too large. Maximum allowed size exceeded.";
+        break;
+      case "LIMIT_FILE_COUNT":
+        message = "Too many files uploaded. Limit exceeded.";
+        break;
+      case "LIMIT_UNEXPECTED_FILE":
+        message = "Unexpected file field. Please check the field name.";
+        break;
+      case "LIMIT_PART_COUNT":
+        message = "Too many parts in the form.";
+        break;
+      case "LIMIT_FIELD_KEY":
+        message = "Field name too long.";
+        break;
+      case "LIMIT_FIELD_VALUE":
+        message = "Field value too long.";
+        break;
+      case "LIMIT_FIELD_COUNT":
+        message = "Too many fields in the form.";
+        break;
+      default:
+        message = `Upload error: ${err.message}`;
     }
   } else if (err instanceof Error) {
     statusCode = 500;

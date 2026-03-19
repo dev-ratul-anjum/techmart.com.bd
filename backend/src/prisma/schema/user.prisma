@@ -1,10 +1,11 @@
 model User {
     id        String     @id @default(uuid())
     name      String
-    email     String
+    role      Role       @default(CUSTOMER)
+    email     String     @unique
     password  String
-    phone     String
-    photo     String
+    phone     String     @unique
+    photo     String?
     createdAt DateTime   @default(now())
     addresses Address[]
     cart      Cart?

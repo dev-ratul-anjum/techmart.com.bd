@@ -4,3 +4,8 @@ enum OutOfStock {
     PRE_ORDER
     UPCOMING
 }
+
+enum Role {
+    ADMIN
+    CUSTOMER
+}
