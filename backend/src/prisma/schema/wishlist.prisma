@@ -1,0 +1,18 @@
+model Wishlist {
+    id String @id @default(uuid())
+
+    userId String @unique
+    user   User   @relation(fields: [userId], references: [id])
+
+    items WishlistItem[]
+}
+
+model WishlistItem {
+    id String @id @default(uuid())
+
+    wishlistId String
+    wishlist   Wishlist @relation(fields: [wishlistId], references: [id])
+
+    productId String
+    product   Product @relation(fields: [productId], references: [id])
+}

@@ -1,0 +1,11 @@
+model Manufacturer {
+    id                 String    @id @default(uuid())
+    name               String
+    image              String
+    description        String
+    manufacturerUrl    String    @unique
+    metaTagTitle       String
+    metaTagDescription String
+    metaTagKeywords    String
+    products           Product[]
+}

@@ -1,0 +1,18 @@
+model Review {
+    id         String       @id @default(uuid())
+    authorName String
+    text       String
+    rating     Int
+    status     ReviewStatus @default(DISABLED)
+    createdAt  DateTime     @default(now())
+
+    product_id String
+    product    Product @relation(fields: [product_id], references: [id])
+    authorId   String
+    author     User    @relation(fields: [authorId], references: [id])
+}
+
+enum ReviewStatus {
+    DISABLED
+    INABLED
+}

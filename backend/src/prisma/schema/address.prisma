@@ -1,0 +1,14 @@
+model Address {
+    id            String  @id @default(uuid())
+    address       String
+    city          String
+    postCode      Int
+    country       String
+    region        String
+    markAsDefault Boolean
+
+    userId String
+    user   User   @relation(fields: [userId], references: [id])
+
+    @@map("addresses")
+}

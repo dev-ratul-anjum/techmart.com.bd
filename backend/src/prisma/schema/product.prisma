@@ -1,0 +1,25 @@
+model Product {
+    id                 String         @id @default(uuid())
+    model              String
+    name               String
+    description        String
+    price              Int
+    discountPrice      Int
+    regularPrice       Int
+    quantity           Int
+    outOfStock         OutOfStock
+    productUrl         String         @unique
+    specifications     Json
+    keyFeatures        Json
+    images             String[]
+    metaTagTitle       String
+    metaTagDescription String
+    metaTagKeywords    String
+    manufacturer_id    String
+    manufacturer       Manufacturer   @relation(fields: [manufacturer_id], references: [id])
+    categories_id      String[]
+    reviews            Review[]
+    questions          Question[]
+    cartItems          CartItem[]
+    wishlistItems      WishlistItem[]
+}
