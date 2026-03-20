@@ -9,6 +9,4 @@ model Address {
 
     userId String
     user   User   @relation(fields: [userId], references: [id])
-
-    @@map("addresses")
 }

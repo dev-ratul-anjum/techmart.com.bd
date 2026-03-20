@@ -1,0 +1,19 @@
+model Attribute {
+    id   String @id @default(uuid())
+    name String // "Color", "RAM", "Storage"
+
+    categoryId String
+    category   Category         @relation(fields: [categoryId], references: [id])
+    values     AttributeValue[]
+}
+
+model AttributeValue {
+    id          String    @id @default(uuid())
+    attributeId String
+    attribute   Attribute @relation(fields: [attributeId], references: [id])
+    value       String // "Black", "8GB", "128GB"
+
+    @@unique([attributeId, value])
+
+    products ProductAttributeValue[]
+}

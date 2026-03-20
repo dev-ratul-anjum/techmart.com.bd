@@ -22,4 +22,15 @@ model Product {
     questions          Question[]
     cartItems          CartItem[]
     wishlistItems      WishlistItem[]
+
+    attributeValues    ProductAttributeValue[]
+}
+
+model ProductAttributeValue {
+  product           Product         @relation(fields: [productId], references: [id])
+  productId         String
+  attributeValue    AttributeValue  @relation(fields: [attributeValueId], references: [id])
+  attributeValueId  String
+  
+  @@id([productId, attributeValueId])
 }

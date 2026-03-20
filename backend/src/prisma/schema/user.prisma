@@ -12,6 +12,4 @@ model User {
     wishlist  Wishlist?
     questions Question[]
     reviews   Review[]
-
-    @@map("users")
 }

@@ -1,6 +1,5 @@
 model Review {
     id         String       @id @default(uuid())
-    authorName String
     text       String
     rating     Int
     status     ReviewStatus @default(DISABLED)
