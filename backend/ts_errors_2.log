@@ -1,0 +1,13 @@
+src/modules/product/product.service.ts(33,7): error TS2322: Type '{ model: string; name: string; description: string; price: number; quantity: number; stockStatus: "IN_STOCK" | "OUT_OF_STOCK" | "PRE_ORDER" | "UPCOMING"; productUrl: string; specifications: Record<...>; ... 8 more ...; images?: string[] | undefined; }' is not assignable to type '(Without<ProductCreateInput, ProductUncheckedCreateInput> & ProductUncheckedCreateInput) | (Without<...> & ProductCreateInput)'.
+  Type '{ model: string; name: string; description: string; price: number; quantity: number; stockStatus: "IN_STOCK" | "OUT_OF_STOCK" | "PRE_ORDER" | "UPCOMING"; productUrl: string; specifications: Record<...>; ... 8 more ...; images?: string[] | undefined; }' is not assignable to type 'Without<ProductCreateInput, ProductUncheckedCreateInput> & ProductUncheckedCreateInput'.
+    Type '{ model: string; name: string; description: string; price: number; quantity: number; stockStatus: "IN_STOCK" | "OUT_OF_STOCK" | "PRE_ORDER" | "UPCOMING"; productUrl: string; specifications: Record<...>; ... 8 more ...; images?: string[] | undefined; }' is not assignable to type 'ProductUncheckedCreateInput'.
+      Types of property 'categories_id' are incompatible.
+        Type 'unknown' is not assignable to type 'string[] | ProductCreatecategories_idInput | undefined'.
+src/modules/product/product.service.ts(37,48): error TS2339: Property 'length' does not exist on type '{}'.
+src/modules/product/product.service.ts(38,52): error TS2339: Property 'map' does not exist on type '{}'.
+src/modules/product/product.service.ts(38,57): error TS7006: Parameter 'valId' implicitly has an 'any' type.
+src/modules/product/product.service.ts(162,11): error TS18047: 'attributeValueIds' is possibly 'null'.
+src/modules/product/product.service.ts(162,29): error TS2339: Property 'length' does not exist on type '{}'.
+src/modules/product/product.service.ts(163,36): error TS18047: 'attributeValueIds' is possibly 'null'.
+src/modules/product/product.service.ts(163,54): error TS2339: Property 'map' does not exist on type '{}'.
+src/modules/product/product.service.ts(163,59): error TS7006: Parameter 'valId' implicitly has an 'any' type.

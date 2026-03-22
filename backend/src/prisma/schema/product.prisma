@@ -1,36 +1,45 @@
 model Product {
-    id                 String         @id @default(uuid())
-    model              String
-    name               String
-    description        String
-    price              Int
-    discountPrice      Int
-    regularPrice       Int
-    quantity           Int
-    outOfStock         OutOfStock
-    productUrl         String         @unique
-    specifications     Json
-    keyFeatures        Json
-    images             String[]
-    metaTagTitle       String
-    metaTagDescription String
-    metaTagKeywords    String
-    manufacturer_id    String
-    manufacturer       Manufacturer   @relation(fields: [manufacturer_id], references: [id])
-    categories_id      String[]
-    reviews            Review[]
-    questions          Question[]
-    cartItems          CartItem[]
-    wishlistItems      WishlistItem[]
+  id                 String         @id @default(uuid())
+  model              String
+  name               String
+  description        String
+  price              Int
+  discountPrice      Int?
+  regularPrice       Int?
+  quantity           Int
+  stockStatus        StockStatus    @default(IN_STOCK)
+  productUrl         String         @unique
+  specifications     Json
+  keyFeatures        Json
+  images             String[]
+  metaTagTitle       String
+  metaTagDescription String
+  metaTagKeywords    String
+  manufacturer_id    String
+  manufacturer       Manufacturer   @relation(fields: [manufacturer_id], references: [id])
+  reviews            Review[]
+  questions          Question[]
+  cartItems          CartItem[]
+  wishlistItems      WishlistItem[]
 
-    attributeValues    ProductAttributeValue[]
+  attributeValues ProductAttributeValue[]
+  categories      ProductCategory[] 
 }
 
 model ProductAttributeValue {
-  product           Product         @relation(fields: [productId], references: [id])
-  productId         String
-  attributeValue    AttributeValue  @relation(fields: [attributeValueId], references: [id])
-  attributeValueId  String
-  
+  product          Product        @relation(fields: [productId], references: [id])
+  productId        String
+  attributeValue   AttributeValue @relation(fields: [attributeValueId], references: [id])
+  attributeValueId String
+
   @@id([productId, attributeValueId])
+}
+
+model ProductCategory {
+  id         String @id @default(uuid())
+  productId  String
+  categoryId String
+
+  product  Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  category Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
 }

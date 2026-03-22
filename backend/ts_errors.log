@@ -1,0 +1,31 @@
+src/modules/attribute/attribute.controller.ts(42,48): error TS2345: Argument of type 'string | string[]' is not assignable to parameter of type 'string'.
+  Type 'string[]' is not assignable to type 'string'.
+src/modules/attribute/attribute.controller.ts(52,47): error TS2345: Argument of type 'string | string[]' is not assignable to parameter of type 'string'.
+  Type 'string[]' is not assignable to type 'string'.
+src/modules/attribute/attribute.controller.ts(62,32): error TS2345: Argument of type 'string | string[]' is not assignable to parameter of type 'string'.
+  Type 'string[]' is not assignable to type 'string'.
+src/modules/attribute/attribute.controller.ts(94,53): error TS2345: Argument of type 'string | string[]' is not assignable to parameter of type 'string'.
+  Type 'string[]' is not assignable to type 'string'.
+src/modules/attribute/attribute.controller.ts(104,52): error TS2345: Argument of type 'string | string[]' is not assignable to parameter of type 'string'.
+  Type 'string[]' is not assignable to type 'string'.
+src/modules/attribute/attribute.controller.ts(114,37): error TS2345: Argument of type 'string | string[]' is not assignable to parameter of type 'string'.
+  Type 'string[]' is not assignable to type 'string'.
+src/modules/product/product.controller.ts(36,46): error TS2345: Argument of type 'string | string[]' is not assignable to parameter of type 'string'.
+  Type 'string[]' is not assignable to type 'string'.
+src/modules/product/product.controller.ts(46,45): error TS2345: Argument of type 'string | string[]' is not assignable to parameter of type 'string'.
+  Type 'string[]' is not assignable to type 'string'.
+src/modules/product/product.controller.ts(56,30): error TS2345: Argument of type 'string | string[]' is not assignable to parameter of type 'string'.
+  Type 'string[]' is not assignable to type 'string'.
+src/modules/product/product.schema.ts(16,39): error TS2353: Object literal may only specify known properties, and 'message' does not exist in type 'SomeType'.
+src/modules/product/product.schema.ts(17,36): error TS2353: Object literal may only specify known properties, and 'message' does not exist in type 'SomeType'.
+src/modules/product/product.schema.ts(37,21): error TS2554: Expected 2-3 arguments, but got 1.
+src/modules/product/product.schema.ts(38,18): error TS2554: Expected 2-3 arguments, but got 1.
+src/modules/product/product.service.ts(21,7): error TS2322: Type '{ model: string; name: string; description: string; price: number; quantity: number; stockStatus: "IN_STOCK" | "OUT_OF_STOCK" | "PRE_ORDER" | "UPCOMING"; productUrl: string; specifications: Record<...>; ... 8 more ...; regularPrice?: number | undefined; }' is not assignable to type '(Without<ProductCreateInput, ProductUncheckedCreateInput> & ProductUncheckedCreateInput) | (Without<...> & ProductCreateInput)'.
+  Type '{ model: string; name: string; description: string; price: number; quantity: number; stockStatus: "IN_STOCK" | "OUT_OF_STOCK" | "PRE_ORDER" | "UPCOMING"; productUrl: string; specifications: Record<...>; ... 8 more ...; regularPrice?: number | undefined; }' is not assignable to type 'Without<ProductCreateInput, ProductUncheckedCreateInput> & ProductUncheckedCreateInput'.
+    Property 'outOfStock' is missing in type '{ model: string; name: string; description: string; price: number; quantity: number; stockStatus: "IN_STOCK" | "OUT_OF_STOCK" | "PRE_ORDER" | "UPCOMING"; productUrl: string; specifications: Record<...>; ... 8 more ...; regularPrice?: number | undefined; }' but required in type 'ProductUncheckedCreateInput'.
+src/modules/product/product.service.ts(118,7): error TS2322: Type '{ model?: string | undefined; name?: string | undefined; description?: string | undefined; price?: number | undefined; discountPrice?: number | undefined; regularPrice?: number | undefined; ... 10 more ...; categories_id?: string[] | undefined; }' is not assignable to type '(Without<ProductUpdateInput, ProductUncheckedUpdateInput> & ProductUncheckedUpdateInput) | (Without<...> & ProductUpdateInput)'.
+  Type '{ model?: string | undefined; name?: string | undefined; description?: string | undefined; price?: number | undefined; discountPrice?: number | undefined; regularPrice?: number | undefined; ... 10 more ...; categories_id?: string[] | undefined; }' is not assignable to type 'Without<ProductUncheckedUpdateInput, ProductUpdateInput> & ProductUpdateInput'.
+    Type '{ model?: string | undefined; name?: string | undefined; description?: string | undefined; price?: number | undefined; discountPrice?: number | undefined; regularPrice?: number | undefined; ... 10 more ...; categories_id?: string[] | undefined; }' is not assignable to type 'Without<ProductUncheckedUpdateInput, ProductUpdateInput>'.
+      Types of property 'manufacturer_id' are incompatible.
+        Type 'string | undefined' is not assignable to type 'undefined'.
+          Type 'string' is not assignable to type 'undefined'.
